@@ -22,3 +22,8 @@ PORT | "3000" | indicates which port this express server will listen to
 TTL_DURATION_AS_SECONDS | "3600" | our cache service's expiration duration in seconds
 CACHE_NUMBER_OF_ENTRIES_ALLOWED | "100" | our cache service's maximum allowed entry count
 RANDOM_STRING_LENGTH | "24" | the length of the random string which we create when there is a cache miss
+
+## running locally
+1. make sure you have node 15 installed
+2. npm install
+3. npm start (or npm run start-dev for nodemon start)
