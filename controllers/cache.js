@@ -23,10 +23,16 @@ const getDataByKey = createController((req) => {
   return CacheService.getDataByKey({ key });
 });
 
+const getAllData = createController((req) => {
+  return CacheService.getAllData({});
+});
+
 export {
   getDataByKey,
+  getAllData,
 };
 
 export default {
   getDataByKey,
+  getAllData,
 };

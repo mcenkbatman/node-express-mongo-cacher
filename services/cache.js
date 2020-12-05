@@ -34,7 +34,7 @@ const upsertDataByKey = ({ key, data }) => {
   };
   return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS);
   ;
-}
+};
 
 const getDataByKey = ({ key }) => {
   return CacheModel.findOne({ key }).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS)
@@ -44,16 +44,21 @@ const getDataByKey = ({ key }) => {
         const newRandomString = getRandomString();
         return upsertDataByKey({ key, data: newRandomString })
       }
-      console.log(resultFromDB);
       LoggerService.info({ message: 'Cache Hit', data: { key }});
       return upsertDataByKey({ key, data: resultFromDB.data })
     });
-}
+};
+
+const getAllData = ({}) => {
+  return CacheModel.find({}).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
+};
 
 export {
   getDataByKey,
+  getAllData,
 };
 
 export default {
   getDataByKey,
+  getAllData,
 };
