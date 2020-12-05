@@ -32,7 +32,7 @@ const upsertDataByKey = ({ key, data }) => {
     new: true,
     upsert: true,
   };
-  return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS);
+  return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
   ;
 };
 
@@ -53,12 +53,20 @@ const getAllData = ({}) => {
   return CacheModel.find({}).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
 };
 
+const removeDataByKey = ({ key }) => {
+  return CacheModel.findOneAndDelete({ key }).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
+}
+
 export {
   getDataByKey,
   getAllData,
+  upsertDataByKey,
+  removeDataByKey,
 };
 
 export default {
   getDataByKey,
   getAllData,
+  upsertDataByKey,
+  removeDataByKey,
 };

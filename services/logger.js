@@ -1,9 +1,19 @@
 const info = ({ message = '', data = {}}) => {
-  console.info(`INFO MESSAGE: ${message} \nDATA: ${JSON.stringify(data)}`);
+  console.info(`
+    ------\n
+    INFO MESSAGE: ${message} \n
+    DATA: ${JSON.stringify(data)}\n
+    ------
+  `);
 };
 
 const error = ({ message = '', data = {}}) => {
-  console.error(`ERROR MESSAGE: ${message} \nDATA: ${JSON.stringify(data)}`);
+  console.error(`
+    ------\n
+    ERROR MESSAGE: ${message} \n
+    DATA: ${JSON.stringify(data)}\n
+    ------
+  `);
 };
 
 export {

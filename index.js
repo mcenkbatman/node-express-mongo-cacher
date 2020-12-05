@@ -5,6 +5,7 @@ import routes from './routes/index.js';
 import models from './models/index.js';
 
 const app = express();
+app.use(express.json());
 
 app.get('/health-check', (req, res) => {
   res.status(200).send({ message: 'Service is running!', timestamp: Date.now() });
