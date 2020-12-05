@@ -57,11 +57,16 @@ const removeDataByKey = ({ key }) => {
   return CacheModel.findOneAndDelete({ key }).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
 }
 
+const removeAllData = ({}) => {
+  return CacheModel.deleteMany({}).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
+}
+
 export {
   getDataByKey,
   getAllData,
   upsertDataByKey,
   removeDataByKey,
+  removeAllData,
 };
 
 export default {
@@ -69,4 +74,5 @@ export default {
   getAllData,
   upsertDataByKey,
   removeDataByKey,
+  removeAllData,
 };

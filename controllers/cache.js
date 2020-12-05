@@ -23,7 +23,7 @@ const getDataByKey = createController((req) => {
   return CacheService.getDataByKey({ key });
 });
 
-const getAllData = createController((req) => {
+const getAllData = createController(() => {
   return CacheService.getAllData({});
 });
 
@@ -60,11 +60,16 @@ const removeDataByKey = createController((req) => {
   return CacheService.removeDataByKey({ key });
 });
 
+const removeAllData = createController(() => {
+  return CacheService.removeAllData({});
+});
+
 export {
   getDataByKey,
   getAllData,
   upsertDataByKey,
   removeDataByKey,
+  removeAllData,
 };
 
 export default {
@@ -72,4 +77,5 @@ export default {
   getAllData,
   upsertDataByKey,
   removeDataByKey,
+  removeAllData,
 };
