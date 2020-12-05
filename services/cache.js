@@ -37,12 +37,18 @@ const upsertDataByKey = ({ key, data }) => {
 };
 
 const getDataByKey = ({ key }) => {
+  const now = moment();
   return CacheModel.findOne({ key }).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS)
     .then((resultFromDB) => {
       if (isNullOrUndefined(resultFromDB)) {
         LoggerService.info({ message: 'Cache Miss', data: { key }});
         const newRandomString = getRandomString();
-        return upsertDataByKey({ key, data: newRandomString })
+        return upsertDataByKey({ key, data: newRandomString });
+      }
+      else if (moment(resultFromDB.timeToExpire).isBefore(now)) {
+        LoggerService.info({ message: 'Cache Hit But Expired', data: { key }});
+        const newRandomString = getRandomString();
+        return upsertDataByKey({ key, data: newRandomString });
       }
       LoggerService.info({ message: 'Cache Hit', data: { key }});
       return upsertDataByKey({ key, data: resultFromDB.data })
