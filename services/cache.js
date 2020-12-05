@@ -32,8 +32,29 @@ const upsertDataByKey = ({ key, data }) => {
     new: true,
     upsert: true,
   };
-  return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
-  ;
+  return CacheModel.countDocuments({})
+    .then((count) => {
+      // TODO what if the count is way bigger than number of entries allowed?
+      if (count < CONFIG.CACHE.NUMBER_OF_ENTRIES_ALLOWED) {
+        return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
+      }
+      return CacheModel.findOne(match).lean()
+        .then((resultFromDB) => {
+          if (resultFromDB) {
+            return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
+          }
+          return CacheModel.find({}).sort({ timeToExpire: 1 }).limit(1).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS)
+            .then((dataToDelete) => {
+              if (Array.isArray(dataToDelete) && dataToDelete[0] && dataToDelete[0]._id) {
+                return CacheModel.findByIdAndDelete(dataToDelete[0]._id);
+              }
+              return Promise.resolve();
+            })
+            .then(() => {
+              return CacheModel.findOneAndUpdate(match, update, options).maxTime(CONFIG.MONGO.MAX_TIME_FOR_QUERY_AS_MS).lean();
+            });
+        });
+    });
 };
 
 const getDataByKey = ({ key }) => {
