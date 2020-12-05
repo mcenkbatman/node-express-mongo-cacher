@@ -12,8 +12,9 @@ const CACHE = {
   TTL: {
     DURATION_AS_SECONDS: parseInt(process.env.TTL_DURATION_AS_SECONDS || 1 * 60 * 60), // 1 hour as default
   },
+  NUMBER_OF_ENTRIES_ALLOWED: parseInt(process.env.CACHE_NUMBER_OF_ENTRIES_ALLOWED || 2),
   RANDOM_STRING_LENGTH: parseInt(process.env.RANDOM_STRING_LENGTH || 24),
-}
+};
 
 export default {
   MONGO,
