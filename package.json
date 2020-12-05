@@ -1,0 +1,23 @@
+{
+  "name": "express-mongo-cacher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "15.2.1",
+    "npm": "7.0.8"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcenkbatman/node-express-mongo-cacher.git"
+  },
+  "author": "Cenk Batman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcenkbatman/node-express-mongo-cacher/issues"
+  },
+  "homepage": "https://github.com/mcenkbatman/node-express-mongo-cacher#readme"
+}
