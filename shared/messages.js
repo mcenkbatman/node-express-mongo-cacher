@@ -1,3 +1,4 @@
+// TODO add error status codes too
 const ERROR_MESSAGES = {
   UNKNOWN: 'Unknown Error',
 };
