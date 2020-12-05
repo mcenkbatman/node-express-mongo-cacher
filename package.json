@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "start-dev": "nodemon index.js",
     "test": "test"
   },
   "repository": {
@@ -22,7 +23,13 @@
   },
   "homepage": "https://github.com/mcenkbatman/node-express-mongo-cacher#readme",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.4"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }

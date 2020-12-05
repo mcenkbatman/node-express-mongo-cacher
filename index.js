@@ -1,11 +1,17 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+import express from 'express';
+import CONFIG from './config.js';
+import { LoggerService } from './services/index.js';
+import routes from './routes/index.js';
+import models from './models/index.js';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+const app = express();
+
+app.get('/health-check', (req, res) => {
+  res.status(200).send({ message: 'Service is running!', timestamp: Date.now() });
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.use('/api', routes);
+
+app.listen(CONFIG.SERVER.PORT, () => {
+  LoggerService.info({ message: `Example app listening`, data: { port: CONFIG.SERVER.PORT } })
 });
